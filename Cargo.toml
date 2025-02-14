@@ -11,7 +11,7 @@ resolver = "2"
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-authors = ["robert@oakleyrain.com"]
+authors = ["robert@fischer3.net"]
 description = "AI-Enhanced Blockchain Security Analysis Platform"
 license = "MIT"
 
@@ -34,7 +34,7 @@ tracing = "0.1"
 tracing-subscriber = "0.3"
 
 # Error Handling
-thiserror = "1.0.69"
+thiserror = "2.0.11"
 
 # Async Traits
 async-trait = "0.1.85"
