@@ -9,6 +9,7 @@ license.workspace = true
 blockchain-core = { path = "../blockchain-core" }
 security-analyzer = { path = "../security-analyzer" }
 transaction-analyzer = { path = "../transaction-analyzer" }
+serde_json = "1.0"
 common = { path = "../common" }
 actix-web = { workspace = true }
 serde = { workspace = true }

@@ -110,7 +110,7 @@ impl SecurityAnalyzer {
     ///     Ok(())
     /// }
     /// ```
-    #[instrument(skip(self), level = "debug")]
+    #[instrument(skip(self), level = "debug", err)]
     pub async fn analyze_contract(&self, address: &Address) -> Result<SecurityAnalysis> {
         let _timing_span = create_timing_span("security_analysis", "contract_scan");
         info!("Starting security analysis for contract {}", address);

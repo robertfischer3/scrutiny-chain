@@ -77,7 +77,7 @@ pub trait VulnerabilityScanner: Send + Sync {
     /// # Ok::<(), common::error::Error>(())
     /// # })
     /// ```
-    #[instrument(skip(self), level = "debug")]
+
     async fn scan(&self, address: &Address) -> Result<Vec<String>>;
 }
 
