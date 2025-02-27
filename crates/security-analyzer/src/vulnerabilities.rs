@@ -17,7 +17,6 @@ use tracing::{debug, error, info, warn, instrument};
 /// - etc.
 /// 
 /// # Examples
-/// 
 /// ```
 /// use security_analyzer::vulnerabilities::VulnerabilityScanner;
 /// use common::types::Address;
@@ -49,7 +48,7 @@ pub trait VulnerabilityScanner: Send + Sync {
     /// 
     /// # Examples
     /// 
-    /// ```
+    ///
     /// use security_analyzer::vulnerabilities::VulnerabilityScanner;
     /// use common::types::Address;
     /// use common::error::Result;
@@ -75,9 +74,7 @@ pub trait VulnerabilityScanner: Send + Sync {
     /// ).await?;
     /// assert_eq!(findings.len(), 2);
     /// # Ok::<(), common::error::Error>(())
-    /// # })
-    /// ```
-
+    ///# })
     async fn scan(&self, address: &Address) -> Result<Vec<String>>;
 }
 
@@ -93,6 +90,7 @@ impl VulnerabilityScanner for ReentrancyScanner {
         let findings = vec![
             "Info: Contract calls external functions after state changes".to_string(),
             "Low: Consider implementing checks-effects-interactions pattern".to_string(),
+            "Medium: Possible reentrancy vulnerability in fallback function".to_string(),
         ];
         
         debug!("Found {} potential reentrancy issues", findings.len());

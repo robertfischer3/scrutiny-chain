@@ -10,6 +10,7 @@ use tokio::time::sleep;
 /// ```
 /// use common::async_utils::retry_with_backoff;
 /// use common::error::Result;
+/// use tokio::time::Duration;
 /// 
 /// async fn fallible_operation() -> Result<String> {
 ///     // Simulate an operation that might fail

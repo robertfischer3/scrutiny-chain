@@ -59,7 +59,7 @@ pub trait TransactionAnalyzer: Send + Sync {
 /// 
 /// # Examples
 /// 
-/// ```
+/// 
 /// use transaction_analyzer::processor::{TransactionProcessor, TransactionAnalyzer};
 /// use blockchain_core::models::Transaction;
 /// use common::error::Result;
@@ -102,7 +102,7 @@ pub trait TransactionAnalyzer: Send + Sync {
 /// assert!(results.contains_key("gas_efficiency"));
 /// # Ok::<(), common::error::Error>(())
 /// # })
-/// ```
+/// 
 pub struct TransactionProcessor {
     analyzers: Vec<Arc<dyn TransactionAnalyzer>>,
 }

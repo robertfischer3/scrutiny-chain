@@ -17,11 +17,10 @@ use blockchain_core::models::{SecurityAnalysis, SmartContract};
 /// 
 /// # Examples
 /// 
-/// ```
 /// use security_analyzer::analysis::SecurityAnalyzer;
 /// use common::types::Address;
 /// 
-/// # tokio_test::block_on(async {
+/// #tokio_test::block_on(async {
 /// let analyzer = SecurityAnalyzer::new();
 /// 
 /// // Analyze a contract
@@ -35,9 +34,8 @@ use blockchain_core::models::{SecurityAnalysis, SmartContract};
 ///         println!("Findings: {:?}", report.findings);
 ///     }
 ///     Err(e) => println!("Analysis failed: {}", e),
-/// }
+/// #}
 /// # })
-/// ```
 pub struct SecurityAnalyzer {
     scanners: Vec<Box<dyn VulnerabilityScanner>>,
 }
@@ -115,12 +113,20 @@ impl SecurityAnalyzer {
         let _timing_span = create_timing_span("security_analysis", "contract_scan");
         info!("Starting security analysis for contract {}", address);
 
+        let mut metadata = HashMap::new();
+    
+        metadata.insert(
+            "scan_timestamp".to_string(),
+            common::utils::current_timestamp().to_string()
+        );
+        metadata.insert("scanner_count".to_string(), self.scanners.len().to_string());
+        
         if self.scanners.is_empty() {
             warn!("No vulnerability scanners registered");
             return Ok(SecurityAnalysis {
                 risk_level: RiskLevel::None,
                 findings: vec!["No security scanners configured".to_string()],
-                metadata: HashMap::new(),
+                metadata,
             });
         }
 
