@@ -13,6 +13,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["robert@fischer3.net"]
 description = "AI-Enhanced Blockchain Security Analysis Platform"
+repository = "https://github.com/robertfischer3/scrutiny-chain"
 license = "MIT"
 
 [workspace.dependencies]
