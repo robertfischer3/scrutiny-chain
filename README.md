@@ -4,7 +4,7 @@ AI-Enhanced Blockchain Security Analysis Platform
 
 ## Overview
 
-Scrutiny Chain is a comprehensive blockchain security analysis toolkit that helps developers and auditors identify vulnerabilities and security issues in smart contracts and blockchain transactions. The platform combines static analysis, pattern matching, and machine learning to provide thorough security insights.
+Scrutiny Chain is a comprehensive blockchain security analysis toolkit in development that helps developers and auditors identify vulnerabilities and security issues in smart contracts and blockchain transactions. The platform combines static analysis, pattern matching, and machine learning to provide thorough security insights.
 
 ## Features
 
