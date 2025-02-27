@@ -7,7 +7,11 @@ license.workspace = true
 
 [dependencies]
 blockchain-core = { path = "../blockchain-core" }
+async-trait = "0.1"
 common = { path = "../common" }
 serde = { workspace = true }
 tokio = { workspace = true }
 tracing = { workspace = true }
+
+[dev-dependencies]
+tokio-test = "0.4"

@@ -2,10 +2,11 @@
 use crate::models::{Transaction, SmartContract, SecurityAnalysis};
 use async_trait::async_trait;
 use common::{
-    error::Result,
-    types::{Address, Hash, TimeRange},
+    error::{Error, Result},
+    types::{Address, Hash, TimeRange, RiskLevel},
 };
 use tracing::{debug, error, info, warn};
+use std::collections::HashMap;
 
 /// Error types specific to blockchain operations
 #[derive(Debug, thiserror::Error)]
@@ -30,50 +31,6 @@ pub enum BlockchainError {
 /// 
 /// This trait must be implemented by any concrete blockchain implementation
 /// to provide access to blockchain data.
-/// 
-/// # Examples
-/// 
-/// ```
-/// use blockchain_core::blockchain::{BlockchainDataProvider, BlockchainError};
-/// use blockchain_core::models::{Transaction, SmartContract};
-/// use common::types::{Address, Hash, TimeRange};
-/// use common::error::Result;
-/// use async_trait::async_trait;
-/// use std::collections::HashMap;
-/// 
-/// struct MockProvider;
-/// 
-/// #[async_trait]
-/// impl BlockchainDataProvider for MockProvider {
-///     async fn get_transaction(&self, hash: &Hash) -> Result<Transaction> {
-///         // Mock implementation
-///         Ok(Transaction::new(
-///             hash.clone(),
-///             Address("0xabc".to_string()),
-///             Some(Address("0xdef".to_string())),
-///             1000,
-///             50,
-///             21000,
-///             5,
-///             vec![],
-///         ))
-///     }
-///     
-///     async fn get_contract(&self, address: &Address) -> Result<SmartContract> {
-///         // Mock implementation
-///         Ok(SmartContract {
-///             address: address.clone(),
-///             bytecode: vec![],
-///             creator: Address("0xabc".to_string()),
-///             creation_tx: "0x123".to_string(),
-///             storage: HashMap::new(),
-///             timestamp: 0,
-///         })
-///     }
-///     
-///     // Other required methods would be implemented here...
-/// }
-/// ```
 #[async_trait]
 pub trait BlockchainDataProvider: Send + Sync {
     /// Retrieves a transaction by its hash
@@ -107,17 +64,27 @@ pub trait BlockchainDataProvider: Send + Sync {
                 Ok(true)
             }
             Err(e) => {
-                if let Some(blockchain_err) = e.downcast_ref::<BlockchainError>() {
-                    match blockchain_err {
-                        BlockchainError::ContractNotFound(_) => {
-                            debug!("Address {} is not a contract", address);
-                            Ok(false)
+                // Try to downcast to the BoxedError
+                if let Error::Other(boxed_err) = &e {
+                    if let Some(blockchain_err) = boxed_err.downcast_ref::<BlockchainError>() {
+                        match blockchain_err {
+                            BlockchainError::ContractNotFound(_) => {
+                                debug!("Address {} is not a contract", address);
+                                Ok(false)
+                            }
+                            _ => {
+                                error!("Error checking contract status: {}", e);
+                                Err(e)
+                            }
                         }
-                        _ => {
-                            error!("Error checking contract status: {}", e);
-                            Err(e)
-                        }
+                    } else {
+                        warn!("Unexpected error type checking contract status: {}", e);
+                        Err(e)
                     }
+                } else if e.to_string().contains("Contract not found") {
+                    // Fallback for string matching if needed
+                    debug!("Address {} is not a contract (string match)", address);
+                    Ok(false)
                 } else {
                     warn!("Unexpected error type checking contract status: {}", e);
                     Err(e)
@@ -130,8 +97,6 @@ pub trait BlockchainDataProvider: Send + Sync {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use common::types::RiskLevel;
-    use std::collections::HashMap;
 
     struct MockProvider;
 
@@ -161,26 +126,27 @@ mod tests {
                     timestamp: 0,
                 })
             } else {
-                Err(Box::<dyn std::error::Error + Send + Sync>::from(Box::new(BlockchainError::ContractNotFound(address.0.clone()))).into())
+                let blockchain_error = BlockchainError::ContractNotFound(address.0.clone());
+                Err(Error::Other(Box::new(blockchain_error)))
             }
         }
 
         async fn get_transactions_in_range(&self, _range: TimeRange) -> Result<Vec<Transaction>> {
-            Ok(vec![])
+            Err(Error::Other(Box::new(BlockchainError::RPCError("Not implemented".to_string()))))
         }
 
         async fn get_address_transactions(&self, _address: &Address) -> Result<Vec<Transaction>> {
-            Ok(vec![])
+            Err(Error::Other(Box::new(BlockchainError::RPCError("Not implemented".to_string()))))
         }
 
         async fn get_balance(&self, _address: &Address) -> Result<u64> {
-            Ok(1000)
+            Err(Error::Other(Box::new(BlockchainError::RPCError("Not implemented".to_string()))))
         }
 
         async fn get_nonce(&self, _address: &Address) -> Result<u64> {
-            Ok(5)
+            Err(Error::Other(Box::new(BlockchainError::RPCError("Not implemented".to_string()))))
         }
-
+        
         async fn analyze_contract(&self, _address: &Address) -> Result<SecurityAnalysis> {
             Ok(SecurityAnalysis {
                 risk_level: RiskLevel::Low,

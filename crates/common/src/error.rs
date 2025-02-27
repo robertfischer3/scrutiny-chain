@@ -96,7 +96,7 @@ impl Error {
     /// use std::io::{Error as IoError, ErrorKind};
     /// 
     /// let io_error = IoError::new(ErrorKind::Other, "io error");
-    /// let err: Error = Box::new(io_error) as Box<dyn std::error::Error + Send + Sync>;
+    /// let err: Error = Error::Other(Box::new(io_error) as Box<dyn std::error::Error + Send + Sync>);
     /// 
     /// // Try to downcast to IoError
     /// if let Some(io_err) = err.downcast_ref::<IoError>() {
@@ -136,6 +136,20 @@ impl Error {
     /// ```
     pub fn blockchain<T: ToString>(msg: T) -> Self {
         Error::Blockchain(msg.to_string())
+    }
+
+    /// Helper to create a Validation error
+    /// 
+    /// # Examples
+    /// 
+    /// ```
+    /// use common::error::Error;
+    /// 
+    /// let err = Error::validation("invalid input");
+    /// assert!(matches!(err, Error::Validation(_)));
+    /// ```
+    pub fn validation<T: ToString>(msg: T) -> Self {
+        Error::Validation(msg.to_string())
     }
 
     /// Helper to create an Analysis error
