@@ -35,46 +35,47 @@ use tracing::{debug, error, info, warn, instrument};
 /// ```
 #[async_trait]
 pub trait VulnerabilityScanner: Send + Sync {
-    /// Scans a smart contract for vulnerabilities
-    /// 
-    /// # Arguments
-    /// 
-    /// * `address` - The address of the smart contract to scan
-    /// 
-    /// # Returns
-    /// 
-    /// Returns a Result containing a vector of vulnerability findings as strings,
-    /// or an Error if the scan fails.
-    /// 
-    /// # Examples
-    /// 
-    ///
-    /// use security_analyzer::vulnerabilities::VulnerabilityScanner;
-    /// use common::types::Address;
-    /// use common::error::Result;
-    /// use async_trait::async_trait;
-    /// 
-    /// struct BasicScanner;
-    /// 
-    /// #[async_trait]
-    /// impl VulnerabilityScanner for BasicScanner {
-    ///     async fn scan(&self, address: &Address) -> Result<Vec<String>> {
-    ///         println!("Scanning contract at {}", address);
-    ///         Ok(vec![
-    ///             "Medium: Possible integer overflow in calculation".to_string(),
-    ///             "Low: Consider adding input validation".to_string(),
-    ///         ])
-    ///     }
-    /// }
-    /// 
-    /// # tokio_test::block_on(async {
-    /// let scanner = BasicScanner;
-    /// let findings = scanner.scan(
-    ///     &Address("0x742d35Cc6634C0532925a3b844Bc454e4438f44e".to_string())
-    /// ).await?;
-    /// assert_eq!(findings.len(), 2);
-    /// # Ok::<(), common::error::Error>(())
-    ///# })
+/// Scans a smart contract for vulnerabilities
+/// 
+/// # Arguments
+/// 
+/// * `address` - The address of the smart contract to scan
+/// 
+/// # Returns
+/// 
+/// Returns a Result containing a vector of vulnerability findings as strings,
+/// or an Error if the scan fails.
+/// 
+/// # Examples
+/// 
+/// ```
+/// use security_analyzer::vulnerabilities::VulnerabilityScanner;
+/// use common::types::Address;
+/// use common::error::Result;
+/// use async_trait::async_trait;
+/// 
+/// struct BasicScanner;
+/// 
+/// #[async_trait]
+/// impl VulnerabilityScanner for BasicScanner {
+///     async fn scan(&self, address: &Address) -> Result<Vec<String>> {
+///         println!("Scanning contract at {}", address);
+///         Ok(vec![
+///             "Medium: Possible integer overflow in calculation".to_string(),
+///             "Low: Consider adding input validation".to_string(),
+///         ])
+///     }
+/// }
+/// 
+/// # tokio_test::block_on(async {
+/// let scanner = BasicScanner;
+/// let findings = scanner.scan(
+///     &Address("0x742d35Cc6634C0532925a3b844Bc454e4438f44e".to_string())
+/// ).await?;
+/// assert_eq!(findings.len(), 2);
+/// Ok::<(), common::error::Error>(())
+/// # });
+/// ```
     async fn scan(&self, address: &Address) -> Result<Vec<String>>;
 }
 
