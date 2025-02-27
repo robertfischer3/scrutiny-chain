@@ -5,7 +5,7 @@
 //! and analysis. It defines the core interfaces that other crates will implement
 //! and build upon.
 
-use tracing::{debug, error, info, warn};
+use tracing::{debug, info};
 
 pub mod models;
 pub mod blockchain;

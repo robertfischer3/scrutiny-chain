@@ -1,10 +1,10 @@
 // transaction-analyzer/src/ml.rs
 use async_trait::async_trait;
 use common::{
-    error::{Error, Result},
+    error::Result,
     logging::create_timing_span,
 };
-use tracing::{debug, error, info, warn, instrument};
+use tracing::{debug, info, instrument};
 use blockchain_core::models::Transaction;
 use crate::processor::TransactionAnalyzer;
 use std::collections::HashMap;
