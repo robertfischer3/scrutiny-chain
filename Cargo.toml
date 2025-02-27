@@ -15,6 +15,9 @@ authors = ["robert@fischer3.net"]
 description = "AI-Enhanced Blockchain Security Analysis Platform"
 repository = "https://github.com/robertfischer3/scrutiny-chain"
 license = "MIT"
+readme = "README.md"
+keywords = ["blockchain", "security", "analysis", "smart-contract"]
+categories = ["cryptography", "blockchain", "security-tools"]
 
 [workspace.dependencies]
 # Async Runtime
