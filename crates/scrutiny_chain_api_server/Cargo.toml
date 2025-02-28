@@ -1,0 +1,18 @@
+[package]
+name = "scrutiny_chain_api_server"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+scrutiny_chain_blockchain_core = { path = "../scrutiny_chain_blockchain_core" }
+scrutiny_chain_security_analyzer = { path = "../scrutiny_chain_security_analyzer" }
+scrutiny_chain_transaction_analyzer = { path = "../scrutiny_chain_transaction_analyzers" }
+serde_json = "1.0"
+scrutiny_chain_common = { path = "../scrutiny_chain_common" }
+actix-web = { workspace = true }
+serde = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

@@ -1,10 +1,11 @@
 [workspace]
 members = [
-    "crates/blockchain-core",
-    "crates/security-analyzer",
-    "crates/transaction-analyzer",
-    "crates/api-server",
-    "crates/common"
+    "crates/scrutiny_chain_blockchain_core",
+    "crates/scrutiny_chain_security_analyzer",
+    "crates/scrutiny_chain_transaction_analyzers",
+    "crates/scrutiny_chain_api_server",
+    "crates/scrutiny_chain_common",
+
 ]
 resolver = "2"
 

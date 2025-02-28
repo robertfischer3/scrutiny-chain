@@ -1,0 +1,16 @@
+[package]
+name = "scrutiny_chain_security_analyzer"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+scrutiny_chain_blockchain_core = { path = "../scrutiny_chain_blockchain_core" }
+async-trait = "0.1"
+scrutiny_chain_common = { path = "../scrutiny_chain_common" }
+serde = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+[dev-dependencies]
+tokio-test = "0.4"
