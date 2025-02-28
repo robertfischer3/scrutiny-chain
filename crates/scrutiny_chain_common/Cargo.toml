@@ -1,5 +1,7 @@
 [package]
 name = "scrutiny_chain_common"
+description = "AI-Enhanced Blockchain Security Analysis Platform"
+repository = "https://github.com/robertfischer3/scrutiny-chain"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
@@ -17,3 +19,4 @@ tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 
 [dev-dependencies]
 tokio-test = "0.4"
+
