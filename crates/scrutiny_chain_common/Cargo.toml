@@ -1,6 +1,6 @@
 [package]
 name = "scrutiny_chain_common"
-description = "AI-Enhanced Blockchain Security Analysis Platform"
+description = "AI-Enhanced Blockchain Security Analysis Platform Common Library"
 repository = "https://github.com/robertfischer3/scrutiny-chain"
 version.workspace = true
 edition.workspace = true

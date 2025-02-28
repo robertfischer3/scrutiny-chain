@@ -1,10 +1,11 @@
 [package]
 name = "scrutiny_chain_blockchain_core"
+description = "AI-Enhanced Blockchain Security Analysis Platform Core Blockchain Functionality"
+repository = "https://github.com/robertfischer3/scrutiny-chain"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
-description = "Core blockchain functionality and traits"
 
 [dependencies]
 scrutiny_chain_common = { path = "../scrutiny_chain_common" }
