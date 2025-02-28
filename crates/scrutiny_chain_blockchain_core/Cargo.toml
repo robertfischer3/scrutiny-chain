@@ -8,7 +8,7 @@ authors.workspace = true
 license.workspace = true
 
 [dependencies]
-scrutiny_chain_common = { path = "../scrutiny_chain_common" }
+scrutiny_chain_common = { path = "../scrutiny_chain_common", version = "0.1.1" }
 serde = { workspace = true }
 thiserror = { workspace = true }
 tracing = { workspace = true }
