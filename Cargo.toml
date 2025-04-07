@@ -20,6 +20,7 @@ readme = "README.md"
 keywords = ["blockchain", "security", "analysis", "smart-contract"]
 categories = ["cryptography", "blockchain", "security-tools"]
 
+
 [workspace.dependencies]
 # Async Runtime
 tokio = { version = "1.43", features = ["full"] }

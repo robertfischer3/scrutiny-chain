@@ -15,5 +15,12 @@ tracing = { workspace = true }
 async-trait = { workspace = true }
 tokio = { workspace = true }
 
+web3 = { version = "0.19", optional = true }
+hex = { workspace = true }
+
+[features]
+default = []
+ethereum = ["web3"]
+
 [dev-dependencies]
 tokio-test = "0.4"

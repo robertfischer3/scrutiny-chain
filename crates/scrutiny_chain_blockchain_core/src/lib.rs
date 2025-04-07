@@ -10,9 +10,17 @@ use tracing::{debug, info};
 pub mod models;
 pub mod blockchain;
 
+// Conditionally include the Ethereum provider
+#[cfg(feature = "ethereum")]
+pub mod ethereum;
+
 // Re-export main types and traits
 pub use blockchain::{BlockchainDataProvider, BlockchainError};
 pub use models::{Transaction, SmartContract, SecurityAnalysis};
+
+// Conditionally re-export the Ethereum provider
+#[cfg(feature = "ethereum")]
+pub use ethereum::EthereumProvider;
 
 /// Initialize logging for the blockchain-core crate
 pub async fn init() {
